@@ -1,25 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Route, Router } from "react-router-dom";
+import Routes, { history } from "./Router";
 
 function App() {
+  const _router = React.createRef<Router>();
+  const _renderRoutes = (UbeyaRoute: IUbeyaRoute, idx: number) => <Route key={idx} {...UbeyaRoute} />;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router history={history} ref={_router}>
+      <div className="App">
+        <button className="logout" onClick={() => history.push("/login")}>Logout</button>
+        {Routes.map(_renderRoutes)}
+      </div>
+    </Router>
   );
 }
 
